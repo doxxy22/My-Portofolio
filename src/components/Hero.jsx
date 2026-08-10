@@ -122,7 +122,7 @@ export default function Hero() {
               View My Projects
             </motion.a>
             <motion.a
-              href="/assets/cv.pdf"
+              href="/assets/CV2.pdf"
               download
               className="btn-outline"
               whileHover={{ scale: 1.03 }}
@@ -140,8 +140,8 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             {[
-              { icon: Github, href: "[GitHub URL]", label: "GitHub" },
-              { icon: Linkedin, href: "[LinkedIn URL]", label: "LinkedIn" },
+              { icon: Github, href: "https://github.com/doxxy22", label: "GitHub" },
+              { icon: Linkedin, href: "https://www.linkedin.com/in/rido-anugrah-a694ba335/", label: "LinkedIn" },
               { icon: Mail, href: "mailto:ridoanugrah2209@gmail.com", label: "Email" },
             ].map(({ icon: Icon, href, label }) => (
               <motion.a

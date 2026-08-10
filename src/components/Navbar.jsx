@@ -140,7 +140,7 @@ export default function Navbar() {
           </motion.button>
 
           <motion.a
-            href="/assets/cv.pdf"
+            href="/assets/CV2.pdf"
             download
             className="btn-outline text-sm !px-4 !py-2"
             whileHover={{ scale: 1.03 }}

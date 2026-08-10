@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Heart } from "lucide-react";
 
 const socials = [
-  { icon: Github, href: "[GitHub URL]", label: "GitHub" },
-  { icon: Linkedin, href: "[LinkedIn URL]", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/doxxy22", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/rido-anugrah-a694ba335/", label: "LinkedIn" },
   { icon: Mail, href: "mailto:ridoanugrah2209@gmail.com", label: "Email" },
 ];
 
