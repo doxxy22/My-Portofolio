@@ -101,6 +101,21 @@ export default function Projects() {
             </motion.article>
           ))}
         </div>
+
+        {/* Centered 'And Many More...' */}
+        <motion.div
+          className="mt-12 text-center"
+          variants={fadeUp}
+          custom={projects.length + 2}
+        >
+          <span
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass-card border border-accent/20 text-sm font-medium tracking-wider uppercase shadow-sm"
+            style={{ color: "rgb(var(--color-text-muted))" }}
+          >
+            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+            And Many More...
+          </span>
+        </motion.div>
       </motion.div>
     </section>
   );
