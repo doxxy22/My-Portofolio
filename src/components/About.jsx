@@ -138,12 +138,6 @@ export default function About() {
                   various academic projects.
                 </p>
                 {/* Availability indicator */}
-                <div className="flex items-center gap-2">
-                  <span className="availability-dot" />
-                  <span className="text-sm font-medium text-emerald-500">
-                    Available for opportunities
-                  </span>
-                </div>
               </div>
             </div>
 
