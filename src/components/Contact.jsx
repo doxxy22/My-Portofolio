@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageCircle } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -42,6 +42,8 @@ export default function Contact() {
           I'm currently open to opportunities in software development and web development. Feel free to reach out directly via email or phone.
         </motion.p>
 
+       
+
         <motion.div
           className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto"
           variants={fadeUp}
@@ -76,6 +78,34 @@ export default function Contact() {
               </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* CTA Buttons */}
+        <motion.div
+          className="flex flex-wrap items-center justify-center gap-4 mt-12"
+          variants={fadeUp}
+          custom={4}
+        >
+          <motion.a
+            href="mailto:ridoanugrah2209@gmail.com"
+            className="btn-primary !px-8 !py-3.5 text-base"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <Send size={18} />
+            Hire Me — Send Email
+          </motion.a>
+          <motion.a
+            href="https://wa.me/6281316887410"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline !px-8 !py-3.5 text-base"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <MessageCircle size={18} />
+            Chat on WhatsApp
+          </motion.a>
         </motion.div>
       </motion.div>
     </section>

@@ -1,11 +1,12 @@
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { GraduationCap, Code2, Globe, Brain, MapPin } from "lucide-react";
+import { GraduationCap, Code2, Globe, Brain, MapPin, Award } from "lucide-react";
 
 const stats = [
-  { value: "2026", label: "Expected Graduation" },
-  { value: "1+", label: "Internship Experience" },
-  { value: "5+", label: "Academic Projects" },
-  { value: "10+", label: "Technologies" },
+  { value: "S.Kom", label: "Degree", isNumber: false },
+  { value: 1, label: "Internship", suffix: "+", isNumber: true },
+  { value: 5, label: "Projects Built", suffix: "+", isNumber: true },
+  { value: 10, label: "Technologies", suffix: "+", isNumber: true },
 ];
 
 const interests = [
@@ -24,6 +25,68 @@ const fadeUp = {
     transition: { duration: 0.5, delay: i * 0.1 },
   }),
 };
+
+// Animated counter hook
+function useCounter(target, duration = 1500, startCounting = false) {
+  const [count, setCount] = useState(0);
+  
+  useEffect(() => {
+    if (!startCounting || typeof target !== "number") return;
+    
+    let start = 0;
+    const increment = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+    
+    return () => clearInterval(timer);
+  }, [target, duration, startCounting]);
+  
+  return count;
+}
+
+function StatCard({ stat, index }) {
+  const [inView, setInView] = useState(false);
+  const ref = useRef(null);
+  const count = useCounter(stat.isNumber ? stat.value : 0, 1200, inView);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setInView(true); },
+      { threshold: 0.5 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <motion.div
+      ref={ref}
+      className="glass-card-hover p-6 text-center"
+      variants={fadeUp}
+      custom={index + 3}
+      whileHover={{ scale: 1.03 }}
+    >
+      <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-accent to-blue-300 bg-clip-text text-transparent">
+        {stat.isNumber ? (
+          <>{count}{stat.suffix}</>
+        ) : (
+          <span className="flex items-center justify-center gap-2">
+            <Award size={24} className="text-accent" />
+            {stat.value}
+          </span>
+        )}
+      </p>
+      <p className="text-sm mt-2" style={{ color: "rgb(var(--color-text-muted))" }}>{stat.label}</p>
+    </motion.div>
+  );
+}
 
 export default function About() {
   return (
@@ -66,14 +129,21 @@ export default function About() {
               </motion.div>
 
               {/* Bio Text */}
-              <div>
+              <div className="space-y-4">
                 <p className="text-lg leading-relaxed" style={{ color: "rgb(var(--color-text-secondary))" }}>
-                  I am a final-year Computer Science student at{" "}
+                  I am a Fresh Graduate in Computer Science from{" "}
                   <span className="text-accent font-medium">Universitas Pamulang</span> with a strong
                   interest in software development, web development, programming, databases, and machine
                   learning. I have gained practical experience through a Web Developer internship and
                   various academic projects.
                 </p>
+                {/* Availability indicator */}
+                <div className="flex items-center gap-2">
+                  <span className="availability-dot" />
+                  <span className="text-sm font-medium text-emerald-500">
+                    Available for opportunities
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -95,18 +165,7 @@ export default function About() {
           {/* Right – Stats (2 cols) */}
           <div className="lg:col-span-2 grid grid-cols-2 gap-4">
             {stats.map((s, i) => (
-              <motion.div
-                key={s.label}
-                className="glass-card-hover p-6 text-center"
-                variants={fadeUp}
-                custom={i + 3}
-                whileHover={{ scale: 1.03 }}
-              >
-                <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-accent to-blue-300 bg-clip-text text-transparent">
-                  {s.value}
-                </p>
-                <p className="text-sm mt-2" style={{ color: "rgb(var(--color-text-muted))" }}>{s.label}</p>
-              </motion.div>
+              <StatCard key={s.label} stat={s} index={i} />
             ))}
           </div>
         </div>

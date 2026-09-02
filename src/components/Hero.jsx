@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ChevronDown, Terminal } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Github, Linkedin, Mail, ChevronDown, Terminal, Sparkles } from "lucide-react";
 import { useTheme } from "../context/ThemeContext.jsx";
 
 const floatingBadges = [
@@ -10,16 +11,32 @@ const floatingBadges = [
   { label: "Git", x: "90%", y: "50%", delay: 1.5 },
 ];
 
+const roles = [
+  "Software Developer",
+  "Web Developer",
+  "Fresh Graduate",
+  "Problem Solver",
+];
+
 const codeLines = [
   { text: "const developer = {", color: "text-blue-400" },
   { text: '  name: "Rido Anugrah",', color: "text-green-400" },
-  { text: '  role: "Software Developer",', color: "text-green-400" },
+  { text: '  role: "Fresh Graduate",', color: "text-green-400" },
+  { text: '  degree: "S.Kom — Computer Science",', color: "text-yellow-400" },
   { text: '  passion: "Building solutions",', color: "text-green-400" },
   { text: "};", color: "text-blue-400" },
 ];
 
 export default function Hero() {
   const { dark } = useTheme();
+  const [roleIndex, setRoleIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section
@@ -61,11 +78,24 @@ export default function Hero() {
       <div className="relative z-10 max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
         {/* Left – Text */}
         <div>
+          {/* Open to Work Badge */}
+          <motion.div
+            className="mb-5"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="open-to-work-badge">
+              <span className="availability-dot" />
+              
+            </span>
+          </motion.div>
+
           <motion.p
             className="text-accent font-mono text-sm mb-4 tracking-wider"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
           >
             👋 Hello, world!
           </motion.p>
@@ -83,14 +113,26 @@ export default function Hero() {
             </span>
           </motion.h1>
 
+          {/* Typing Animation Subtitle */}
           <motion.h2
-            className="text-xl sm:text-2xl font-medium mb-6"
+            className="text-xl sm:text-2xl font-medium mb-6 h-9 flex items-center"
             style={{ color: "rgb(var(--color-text-secondary))" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Software Developer &amp; Programmer
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={roleIndex}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.4 }}
+              >
+                {roles[roleIndex]}
+              </motion.span>
+            </AnimatePresence>
+            <span className="typing-cursor" />
           </motion.h2>
 
           <motion.p
@@ -100,9 +142,9 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            Final-year Computer Science student passionate about building
-            reliable, scalable, and user-focused software solutions. I enjoy
-            turning ideas into functional digital products through clean code
+            Fresh Graduate in Computer Science passionate about building
+            reliable, scalable, and user-focused software solutions. Ready to
+            contribute and grow through real-world projects with clean code
             and modern web technologies.
           </motion.p>
 
@@ -119,6 +161,7 @@ export default function Hero() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
+              <Sparkles size={16} />
               View My Projects
             </motion.a>
             <motion.a

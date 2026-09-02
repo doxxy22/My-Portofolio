@@ -39,13 +39,14 @@ export default function Skills() {
             >
               <h3 className="text-base font-semibold mb-5 flex items-center gap-3" style={{ color: "rgb(var(--color-text))" }}>
                 <span className="text-xl">{cat.icon}</span>
-                <span>{cat.label}</span>
+                <span className="flex-1">{cat.label}</span>
+                <span className="skill-count">{skills[cat.key].length}</span>
               </h3>
               <div className="flex flex-wrap gap-2">
                 {skills[cat.key].map((skill) => (
                   <motion.span
                     key={skill}
-                    className="badge"
+                    className="badge badge-glow"
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                   >

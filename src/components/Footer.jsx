@@ -17,7 +17,7 @@ export default function Footer() {
             <p className="text-lg font-bold" style={{ color: "rgb(var(--color-text))" }}>
               Rido<span className="text-accent">.</span>
             </p>
-            <p className="text-sm mt-1" style={{ color: "rgb(var(--color-text-muted))" }}>Software Developer / Programmer</p>
+            <p className="text-sm mt-1" style={{ color: "rgb(var(--color-text-muted))" }}>Fresh Graduate | Software Developer</p>
           </div>
 
           {/* Social icons */}
