@@ -48,14 +48,7 @@ export default function Education() {
                 </span>
               </div>
 
-              <div className="flex flex-wrap gap-3">
-                <span className="flex items-center gap-2 text-sm" style={{ color: "rgb(var(--color-text-secondary))" }}>
-                  <BookOpen size={14} className="text-accent/70" /> Faculty of Computer Science
-                </span>
-                <span className="flex items-center gap-2 text-sm" style={{ color: "rgb(var(--color-text-secondary))" }}>
-                  <BookOpen size={14} className="text-accent/70" /> Computer Science Program
-                </span>
-              </div>
+              
 
               <div className="mt-2 p-5 rounded-xl bg-accent/5 border border-accent/15">
                 <p className="text-xs text-accent font-semibold uppercase tracking-wider mb-2 flex items-center gap-2">

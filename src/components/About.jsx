@@ -131,8 +131,8 @@ export default function About() {
               {/* Bio Text */}
               <div className="space-y-4">
                 <p className="text-lg leading-relaxed" style={{ color: "rgb(var(--color-text-secondary))" }}>
-                  I am a Fresh Graduate in Computer Science from{" "}
-                  <span className="text-accent font-medium">Universitas Pamulang</span> with a strong
+                  I am a Fresh Graduate in Computer Science
+                  with a strong
                   interest in software development, web development, programming, databases, and machine
                   learning. I have gained practical experience through a Web Developer internship and
                   various academic projects.

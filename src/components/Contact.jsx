@@ -23,12 +23,6 @@ const contactInfo = [
     value: "+6281316887410",
     href: "tel:081316887410",
   },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Tangerang, Indonesia",
-    href: null,
-  },
 ];
 
 export default function Contact() {
@@ -45,7 +39,7 @@ export default function Contact() {
        
 
         <motion.div
-          className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto"
           variants={fadeUp}
           custom={2}
         >
