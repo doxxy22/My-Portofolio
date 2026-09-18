@@ -12,6 +12,6 @@ export const experience = [
       "Performed debugging and troubleshooting to improve application stability.",
       "Collaborated with team members during development, testing, and feature improvement."
     ],
-    tech: ["HTML","CSS","JavaScript","React.js","Database","Git"]
+    tech: ["HTML","CSS","JavaScript","PHP","MySQL","Git"]
   }
 ];
