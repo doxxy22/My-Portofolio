@@ -7,8 +7,8 @@ export const experience = [
     year: "2025",
     description: [
       "Developed and maintained websites based on project requirements and user needs.",
-      "Assisted in developing website interfaces using HTML, CSS, JavaScript, and React.js.",
-      "Integrated frontend interfaces with backend services and databases.",
+      "Developed backend using PHP and frontend using HTML, CSS, JavaScript.",
+      "Managed MySQL database using XAMPP for efficient data management.",
       "Performed debugging and troubleshooting to improve application stability.",
       "Collaborated with team members during development, testing, and feature improvement."
     ],
