@@ -14,7 +14,7 @@ export const projects = [
     tech: ["JavaScript", "HTML", "CSS", "TMDB API"],
     image: "/assets/movie.png",
     github: "https://github.com/doxxy22/doomovie",
-    demo: "https://doomovie-ruddy.vercel.app/"
+    demo: "https://doomovies.netlify.app"
   },
   {
     id: 3,
@@ -23,6 +23,6 @@ export const projects = [
     tech: ["JavaScript", "HTML", "CSS"],
     image: "/assets/camp.png",
     github: "https://github.com/doxxy22/ninetyeight-camp",
-    demo: "https://ninetyeight-camp-6evt.vercel.app/"
+    demo: "https://ninetyeight-camp.vercel.app"
   }
 ];
