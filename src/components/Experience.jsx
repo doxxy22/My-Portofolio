@@ -15,64 +15,83 @@ export default function Experience() {
   return (
     <section id="experience" className="py-24 px-6 max-w-7xl mx-auto">
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
-        <motion.h2 className="section-heading" variants={fadeUp}>
-          Experience
-        </motion.h2>
-        <motion.p className="section-subheading" variants={fadeUp} custom={1}>
-          My professional journey so far
-        </motion.p>
+        {/* Section label */}
+        <motion.div className="flex items-center gap-4 mb-12" variants={fadeUp}>
+          <span className="text-7xl md:text-8xl font-black text-accent/10 leading-none select-none">02</span>
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "rgb(var(--color-text))" }}>Experience</h2>
+            <p className="text-sm mt-1" style={{ color: "rgb(var(--color-text-muted))" }}>My professional journey so far</p>
+          </div>
+        </motion.div>
 
-        <div className="max-w-3xl mx-auto space-y-8">
+        <div className="space-y-6">
           {experience.map((exp, idx) => (
             <motion.div
               key={exp.id}
-              className="relative"
+              className="glass-card-hover overflow-hidden"
               variants={fadeUp}
               custom={idx + 2}
             >
-              {/* Timeline line */}
-              <div className="absolute left-6 top-14 bottom-0 w-px bg-gradient-to-b from-accent/50 to-transparent hidden md:block" />
+              <div className={`grid grid-cols-1 ${exp.image ? "lg:grid-cols-12" : ""} gap-0`}>
+                {/* Image (if available) */}
+                {exp.image && (
+                  <div className="lg:col-span-5 relative overflow-hidden">
+                    <img
+                      src={exp.image}
+                      alt={exp.title}
+                      className="w-full h-full object-cover min-h-[250px] lg:min-h-full transition-transform duration-500 hover:scale-105"
+                    />
+                    {/* Number overlay */}
+                    <div className="absolute bottom-4 left-4">
+                      <span className="text-6xl font-black text-white/20 leading-none">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                  </div>
+                )}
 
-              <div className="glass-card-hover p-6 md:p-8 md:ml-14 relative">
-                {/* Timeline dot */}
-                <div className="hidden md:flex absolute -left-[3.25rem] top-8 w-4 h-4 rounded-full bg-accent border-4 items-center justify-center" style={{ borderColor: "rgb(var(--color-bg))" }}>
-                  <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                </div>
+                {/* Content */}
+                <div className={`${exp.image ? "lg:col-span-7" : ""} p-6 md:p-8 relative`}>
+                  {/* Number for non-image cards */}
+                  {!exp.image && (
+                    <span className="absolute top-4 right-6 text-6xl font-black text-accent/8 leading-none select-none">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                  )}
 
-                {/* Header */}
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
-                  <div>
+                  {/* Header */}
+                  <div className="flex flex-col gap-2 mb-5">
                     <h3 className="text-xl font-bold flex items-center gap-2" style={{ color: "rgb(var(--color-text))" }}>
                       <Briefcase size={18} className="text-accent" />
                       {exp.title}
                     </h3>
-                    <p className="text-accent font-medium mt-1">{exp.company}</p>
+                    <p className="text-accent font-medium">{exp.company}</p>
+                    <div className="flex flex-wrap gap-4 text-sm" style={{ color: "rgb(var(--color-text-muted))" }}>
+                      <span className="flex items-center gap-1">
+                        <MapPin size={13} /> {exp.location}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Calendar size={13} /> {exp.year}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex flex-wrap gap-3 text-sm" style={{ color: "rgb(var(--color-text-muted))" }}>
-                    <span className="flex items-center gap-1">
-                      <MapPin size={13} /> {exp.location}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Calendar size={13} /> {exp.year}
-                    </span>
+
+                  {/* Description */}
+                  <ul className="space-y-2 mb-6">
+                    {exp.description.map((d, i) => (
+                      <li key={i} className="text-sm flex gap-3" style={{ color: "rgb(var(--color-text-muted))" }}>
+                        <span className="text-accent mt-1.5 shrink-0">▸</span>
+                        <span>{d}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Tech badges */}
+                  <div className="flex flex-wrap gap-2">
+                    {exp.tech.map((t) => (
+                      <span key={t} className="badge">{t}</span>
+                    ))}
                   </div>
-                </div>
-
-                {/* Description */}
-                <ul className="space-y-2 mb-6">
-                  {exp.description.map((d, i) => (
-                    <li key={i} className="text-sm flex gap-3" style={{ color: "rgb(var(--color-text-muted))" }}>
-                      <span className="text-accent mt-1.5 shrink-0">▸</span>
-                      <span>{d}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Tech badges */}
-                <div className="flex flex-wrap gap-2">
-                  {exp.tech.map((t) => (
-                    <span key={t} className="badge">{t}</span>
-                  ))}
                 </div>
               </div>
             </motion.div>
