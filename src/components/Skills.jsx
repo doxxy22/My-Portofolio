@@ -7,6 +7,7 @@ const categories = [
   { key: "databases", label: "Database", icon: "🗄️", num: "03" },
   { key: "tools", label: "Tools & Frameworks", icon: "🛠️", num: "04" },
   { key: "ml", label: "Data & Machine Learning", icon: "🤖", num: "05" },
+  { key: "video", label: "Video Creation & Editing", icon: "🎬", num: "06" },
 ];
 
 const fadeUp = {
@@ -17,6 +18,16 @@ const fadeUp = {
     transition: { duration: 0.5, delay: i * 0.1 },
   }),
 };
+
+// Grid span layout: 6 cards across 12-col grid
+const spanMap = [
+  "md:col-span-7", // 01 — wide
+  "md:col-span-5", // 02
+  "md:col-span-4", // 03
+  "md:col-span-4", // 04
+  "md:col-span-4", // 05
+  "md:col-span-12", // 06 — full width to highlight Remotion
+];
 
 export default function Skills() {
   return (
@@ -34,18 +45,13 @@ export default function Skills() {
         {/* Bento grid — mixed sizes */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
           {categories.map((cat, idx) => {
-            // Assign different spans for visual variety
-            const spanClass =
-              idx === 0 ? "md:col-span-7" :
-              idx === 1 ? "md:col-span-5" :
-              idx === 2 ? "md:col-span-4" :
-              idx === 3 ? "md:col-span-4" :
-              "md:col-span-4";
+            const spanClass = spanMap[idx] ?? "md:col-span-4";
+            const isVideo = cat.key === "video";
 
             return (
               <motion.div
                 key={cat.key}
-                className={`${spanClass} glass-card-hover p-6 relative overflow-hidden`}
+                className={`${spanClass} glass-card-hover p-6 relative overflow-hidden${isVideo ? " border border-accent/20" : ""}`}
                 variants={fadeUp}
                 custom={idx + 2}
               >
@@ -57,13 +63,19 @@ export default function Skills() {
                 <h3 className="text-base font-semibold mb-5 flex items-center gap-3" style={{ color: "rgb(var(--color-text))" }}>
                   <span className="text-xl">{cat.icon}</span>
                   <span className="flex-1">{cat.label}</span>
+                  {isVideo && (
+                    <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-accent/15 text-accent border border-accent/30">
+                      Featured
+                    </span>
+                  )}
                   <span className="skill-count">{skills[cat.key].length}</span>
                 </h3>
+
                 <div className="flex flex-wrap gap-2">
                   {skills[cat.key].map((skill) => (
                     <motion.span
                       key={skill}
-                      className="badge badge-glow"
+                      className={`badge${isVideo && skill === "Remotion" ? " badge-glow ring-1 ring-accent/40" : " badge-glow"}`}
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -71,6 +83,12 @@ export default function Skills() {
                     </motion.span>
                   ))}
                 </div>
+
+                {isVideo && (
+                  <p className="mt-4 text-xs" style={{ color: "rgb(var(--color-text-muted))" }}>
+                    Building programmatic videos with React & Remotion — frame-accurate animations rendered as real video files.
+                  </p>
+                )}
               </motion.div>
             );
           })}

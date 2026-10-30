@@ -3,5 +3,6 @@ export const skills = {
   web: ["HTML", "CSS", "JavaScript", "React.js", "Node.js", "PHP"],
   databases: ["MySQL", "SQL Server", "phpMyAdmin"],
   tools: ["Git", "GitHub", "Visual Studio Code", "Android Studio", "NetBeans", "XAMPP", "Flutter"],
-  ml: ["Pandas", "NumPy", "Scikit-learn", "TF-IDF", "Cosine Similarity"]
+  ml: ["Pandas", "NumPy", "Scikit-learn", "TF-IDF", "Cosine Similarity"],
+  video: ["Remotion", "React.js", "Motion Graphics", "After Effects", "Premiere Pro", "Video Editing"]
 };

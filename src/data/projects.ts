@@ -24,5 +24,12 @@ export const projects = [
     image: "/assets/camp.png",
     github: "https://github.com/doxxy22/ninetyeight-camp",
     demo: "https://ninetyeight-camp.vercel.app"
+  },
+  {
+    id: 4,
+    title: "Programmatic Video with Remotion",
+    description: "Created motion graphics and animated videos entirely with code using Remotion and React. Frame-accurate animations, dynamic data-driven content, and export to real video files — no traditional video editor needed.",
+    tech: ["Remotion", "React.js", "JavaScript", "Motion Graphics"],
+    video: "/assets/remotion-preview.mp4",
   }
 ];

@@ -38,10 +38,19 @@ export default function Projects() {
                 whileHover={{ y: -3, transition: { duration: 0.3 } }}
               >
                 <div className={`grid grid-cols-1 lg:grid-cols-12 gap-0`}>
-                  {/* Image side */}
+                  {/* Image / Video side */}
                   <div className={`lg:col-span-7 relative overflow-hidden ${!isEven ? "lg:order-2" : ""}`}>
                     <div className="relative h-64 lg:h-full min-h-[280px]">
-                      {project.image ? (
+                      {project.video ? (
+                        <video
+                          src={project.video}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                      ) : project.image ? (
                         <img
                           src={project.image}
                           alt={project.title}
@@ -64,9 +73,16 @@ export default function Projects() {
 
                   {/* Content side */}
                   <div className={`lg:col-span-5 p-7 md:p-9 flex flex-col justify-center ${!isEven ? "lg:order-1" : ""}`}>
-                    <p className="text-xs font-semibold text-accent uppercase tracking-widest mb-3">
-                      PROJECT {String(index + 1).padStart(2, "0")}
-                    </p>
+                    <div className="flex items-center gap-3 mb-3">
+                      <p className="text-xs font-semibold text-accent uppercase tracking-widest">
+                        PROJECT {String(index + 1).padStart(2, "0")}
+                      </p>
+                      {project.video && (
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent/15 text-accent border border-accent/30 uppercase tracking-wider">
+                          🎬 Remotion
+                        </span>
+                      )}
+                    </div>
                     <h3
                       className="text-xl md:text-2xl font-bold mb-3 group-hover:text-accent transition-colors duration-300"
                       style={{ color: "rgb(var(--color-text))" }}
