@@ -12,10 +12,25 @@ export const experience = [
       "Performed debugging and troubleshooting to improve application stability.",
       "Collaborated with team members during development, testing, and feature improvement."
     ],
-    tech: ["HTML","CSS","JavaScript","PHP","MySQL","Git"]
+    tech: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "Git"]
   },
   {
     id: 2,
+    title: "E-commerce Seller & Store Administrator",
+    company: "Dhori Store (Lazada)",
+    location: "South Tangerang, Indonesia",
+    year: "2021 - Present",
+    link: "https://www.lazada.co.id/shop/dhori-store/",
+    description: [
+      "Run an online store on Lazada as owner and sole admin: Dhori Store.",
+      "Manage a catalog of 26 products, inputting and updating listings, including titles, descriptions, and images.",
+      "Register the store for Lazada campaigns and promotions.",
+      "Reply to buyer chats and handle customer questions through the seller account, maintaining a 94% positive seller rating."
+    ],
+    tech: ["E-Commerce", "Store Operations", "Customer Support", "Catalog Management", "Digital Marketing"]
+  },
+  {
+    id: 3,
     title: "Community Service — Front-End Trainer",
     company: "Universitas Pamulang × SMK Negeri 3 Tangerang Selatan",
     location: "South Tangerang, Indonesia",
@@ -26,6 +41,6 @@ export const experience = [
       "Involved in delivering course materials, workshops, and mentoring students in building web portfolios and digital CVs.",
       "Helped participants understand personal information structuring and personal branding to enhance their readiness for the professional world."
     ],
-    tech: ["HTML","CSS","Teaching","Workshop"]
+    tech: ["HTML", "CSS", "Teaching", "Workshop"]
   }
 ];

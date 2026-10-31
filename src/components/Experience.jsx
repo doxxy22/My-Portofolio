@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Briefcase, Calendar, MapPin } from "lucide-react";
+import { Briefcase, Calendar, MapPin, ExternalLink } from "lucide-react";
 import { experience } from "../data/experience.ts";
 
 const fadeUp = {
@@ -65,7 +65,21 @@ export default function Experience() {
                       <Briefcase size={18} className="text-accent" />
                       {exp.title}
                     </h3>
-                    <p className="text-accent font-medium">{exp.company}</p>
+                    <div className="flex items-center gap-2">
+                      {exp.link ? (
+                        <a
+                          href={exp.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-accent font-medium hover:underline inline-flex items-center gap-1.5 transition-colors"
+                        >
+                          {exp.company}
+                          <ExternalLink size={14} />
+                        </a>
+                      ) : (
+                        <p className="text-accent font-medium">{exp.company}</p>
+                      )}
+                    </div>
                     <div className="flex flex-wrap gap-4 text-sm" style={{ color: "rgb(var(--color-text-muted))" }}>
                       <span className="flex items-center gap-1">
                         <MapPin size={13} /> {exp.location}
