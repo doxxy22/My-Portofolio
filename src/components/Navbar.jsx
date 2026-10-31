@@ -47,11 +47,10 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className={`sticky top-0 z-50 transition-all duration-500 ${
-        scrolled
+      className={`sticky top-0 z-50 transition-all duration-500 ${scrolled
           ? "shadow-lg backdrop-blur-xl border-b"
           : "bg-transparent"
-      }`}
+        }`}
       style={{
         backgroundColor: scrolled ? `rgb(var(--color-bg) / 0.85)` : "transparent",
         borderColor: scrolled ? `rgb(var(--color-border) / 0.1)` : "transparent",
@@ -78,11 +77,10 @@ export default function Navbar() {
             <button
               key={item.to}
               onClick={() => handleClick(item.to)}
-              className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
-                active === item.to
+              className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${active === item.to
                   ? "text-accent"
                   : "hover:text-accent"
-              }`}
+                }`}
               style={{
                 color: active === item.to ? undefined : `rgb(var(--color-text-muted))`,
               }}
@@ -140,7 +138,7 @@ export default function Navbar() {
           </motion.button>
 
           <motion.a
-            href="/assets/CV2.pdf"
+            href="/assets/CV.pdf"
             download
             className="btn-outline text-sm !px-4 !py-2"
             whileHover={{ scale: 1.03 }}
@@ -206,11 +204,10 @@ export default function Navbar() {
                 <motion.button
                   key={item.to}
                   onClick={() => handleClick(item.to)}
-                  className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                    active === item.to
+                  className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${active === item.to
                       ? "text-accent bg-accent/10"
                       : ""
-                  }`}
+                    }`}
                   style={{
                     color: active === item.to ? undefined : `rgb(var(--color-text-muted))`,
                   }}
@@ -225,7 +222,7 @@ export default function Navbar() {
             </div>
             <div className="flex gap-3 pt-4 border-t" style={{ borderColor: `rgb(var(--color-border) / 0.1)` }}>
               <a
-                href="/assets/cv.pdf"
+                href="/assets/CV.pdf"
                 download
                 className="btn-outline text-sm flex-1 !py-3"
                 aria-label="Download CV"

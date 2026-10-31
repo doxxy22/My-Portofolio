@@ -165,7 +165,7 @@ export default function Hero() {
               View My Projects
             </motion.a>
             <motion.a
-              href="/assets/CV2.pdf"
+              href="/assets/CV.pdf"
               download
               className="btn-outline"
               whileHover={{ scale: 1.03 }}
