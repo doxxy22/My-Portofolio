@@ -54,32 +54,37 @@ export default function Experience() {
                 <div className={`${exp.image ? "lg:col-span-7" : ""} p-6 md:p-8 relative`}>
                   {/* Number for non-image cards */}
                   {!exp.image && (
-                    <span className="absolute top-4 right-6 text-6xl font-black text-accent/8 leading-none select-none">
+                    <span className="absolute top-4 right-6 text-6xl font-black text-accent/8 leading-none select-none pointer-events-none">
                       {String(idx + 1).padStart(2, "0")}
                     </span>
                   )}
 
                   {/* Header */}
                   <div className="flex flex-col gap-2 mb-5">
-                    <h3 className="text-xl font-bold flex items-center gap-2" style={{ color: "rgb(var(--color-text))" }}>
-                      <Briefcase size={18} className="text-accent" />
-                      {exp.title}
-                    </h3>
-                    <div className="flex items-center gap-2">
-                      {exp.link ? (
-                        <a
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <h3 className="text-xl font-bold flex items-center gap-2" style={{ color: "rgb(var(--color-text))" }}>
+                          <Briefcase size={18} className="text-accent" />
+                          {exp.title}
+                        </h3>
+                        <p className="text-accent font-medium mt-1">{exp.company}</p>
+                      </div>
+
+                      {exp.link && (
+                        <motion.a
                           href={exp.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-accent font-medium hover:underline inline-flex items-center gap-1.5 transition-colors"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-accent/30 bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all self-start shrink-0 shadow-sm"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                         >
-                          {exp.company}
-                          <ExternalLink size={14} />
-                        </a>
-                      ) : (
-                        <p className="text-accent font-medium">{exp.company}</p>
+                          <ExternalLink size={13} />
+                          {exp.linkText || "View Link"}
+                        </motion.a>
                       )}
                     </div>
+
                     <div className="flex flex-wrap gap-4 text-sm" style={{ color: "rgb(var(--color-text-muted))" }}>
                       <span className="flex items-center gap-1">
                         <MapPin size={13} /> {exp.location}
