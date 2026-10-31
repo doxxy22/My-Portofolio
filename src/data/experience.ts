@@ -21,7 +21,6 @@ export const experience = [
     location: "South Tangerang, Indonesia",
     year: "2021 - Present",
     link: "https://www.lazada.co.id/shop/dhori-store/",
-    linkText: "Visit Store",
     description: [
       "Run an online store on Lazada as owner and sole admin: Dhori Store.",
       "Manage a catalog of 26 products, inputting and updating listings, including titles, descriptions, and images.",
@@ -37,8 +36,7 @@ export const experience = [
     location: "South Tangerang, Indonesia",
     year: "2025",
     image: "/assets/pkm.jpg",
-    link: "https://jurnalmahasiswa.com/index.php/appa/article/view/2232",
-    linkText: "Read Published Article",
+    articleLink: "https://jurnalmahasiswa.com/index.php/appa/article/view/2232",
     description: [
       "Contributed to a Community Service program providing front-end development training using HTML and CSS to students of SMK Negeri 3 Tangerang Selatan.",
       "Involved in delivering course materials, workshops, and mentoring students in building web portfolios and digital CVs.",

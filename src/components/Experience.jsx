@@ -61,30 +61,25 @@ export default function Experience() {
 
                   {/* Header */}
                   <div className="flex flex-col gap-2 mb-5">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <h3 className="text-xl font-bold flex items-center gap-2" style={{ color: "rgb(var(--color-text))" }}>
-                          <Briefcase size={18} className="text-accent" />
-                          {exp.title}
-                        </h3>
-                        <p className="text-accent font-medium mt-1">{exp.company}</p>
-                      </div>
-
-                      {exp.link && (
-                        <motion.a
+                    <h3 className="text-xl font-bold flex items-center gap-2" style={{ color: "rgb(var(--color-text))" }}>
+                      <Briefcase size={18} className="text-accent" />
+                      {exp.title}
+                    </h3>
+                    <div className="flex items-center gap-2">
+                      {exp.link ? (
+                        <a
                           href={exp.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-accent/30 bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all self-start shrink-0 shadow-sm"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
+                          className="text-accent font-medium hover:underline inline-flex items-center gap-1.5 transition-colors"
                         >
-                          <ExternalLink size={13} />
-                          {exp.linkText || "View Link"}
-                        </motion.a>
+                          {exp.company}
+                          <ExternalLink size={14} />
+                        </a>
+                      ) : (
+                        <p className="text-accent font-medium">{exp.company}</p>
                       )}
                     </div>
-
                     <div className="flex flex-wrap gap-4 text-sm" style={{ color: "rgb(var(--color-text-muted))" }}>
                       <span className="flex items-center gap-1">
                         <MapPin size={13} /> {exp.location}
@@ -104,6 +99,21 @@ export default function Experience() {
                       </li>
                     ))}
                   </ul>
+
+                  {/* Article Link (for Community Service) */}
+                  {exp.articleLink && (
+                    <div className="mb-6">
+                      <a
+                        href={exp.articleLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline px-3 py-1.5 rounded-lg border border-accent/25 bg-accent/5 hover:bg-accent/10 transition-colors"
+                      >
+                        <ExternalLink size={13} />
+                        <span>Read Published Article</span>
+                      </a>
+                    </div>
+                  )}
 
                   {/* Tech badges */}
                   <div className="flex flex-wrap gap-2">
