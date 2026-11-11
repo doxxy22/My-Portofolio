@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, MessageCircle } from "lucide-react";
+import { Mail, Phone, Send, MessageCircle } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -10,33 +11,33 @@ const fadeUp = {
   }),
 };
 
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "ridoanugrah2209@gmail.com",
-    href: "mailto:ridoanugrah2209@gmail.com",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+6281316887410",
-    href: "tel:081316887410",
-  },
-];
-
 export default function Contact() {
+  const { t } = useLanguage();
+
+  const contactInfo = [
+    {
+      icon: Mail,
+      label: t.contact.email,
+      value: "ridoanugrah2209@gmail.com",
+      href: "mailto:ridoanugrah2209@gmail.com",
+    },
+    {
+      icon: Phone,
+      label: t.contact.phone,
+      value: "+6281316887410",
+      href: "tel:081316887410",
+    },
+  ];
+
   return (
     <section id="contact" className="py-24 px-6 max-w-7xl mx-auto">
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
         <motion.h2 className="section-heading" variants={fadeUp}>
-          Let's Work Together
+          {t.contact.title}
         </motion.h2>
         <motion.p className="section-subheading" variants={fadeUp} custom={1}>
-          I'm currently open to opportunities in software development and web development. Feel free to reach out directly via email or phone.
+          {t.contact.subtitle}
         </motion.p>
-
-       
 
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto"
@@ -87,7 +88,7 @@ export default function Contact() {
             whileTap={{ scale: 0.97 }}
           >
             <Send size={18} />
-            Hire Me — Send Email
+            {t.contact.sendEmail}
           </motion.a>
           <motion.a
             href="https://wa.me/6281316887410"
@@ -98,7 +99,7 @@ export default function Contact() {
             whileTap={{ scale: 0.97 }}
           >
             <MessageCircle size={18} />
-            Chat on WhatsApp
+            {t.contact.chatWhatsapp}
           </motion.a>
         </motion.div>
       </motion.div>

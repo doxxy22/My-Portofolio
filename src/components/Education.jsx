@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { GraduationCap, MapPin, Calendar, BookOpen, FileText } from "lucide-react";
+import { GraduationCap, MapPin, Calendar, FileText } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -11,14 +12,16 @@ const fadeUp = {
 };
 
 export default function Education() {
+  const { t } = useLanguage();
+
   return (
     <section id="education" className="py-24 px-6 max-w-7xl mx-auto">
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
         <motion.h2 className="section-heading" variants={fadeUp}>
-          Education
+          {t.education.title}
         </motion.h2>
         <motion.p className="section-subheading" variants={fadeUp} custom={1}>
-          My academic background
+          {t.education.subtitle}
         </motion.p>
 
         <motion.div
@@ -36,7 +39,7 @@ export default function Education() {
             <div className="flex-1 space-y-4">
               <div>
                 <h3 className="text-xl font-bold" style={{ color: "rgb(var(--color-text))" }}>Universitas Pamulang</h3>
-                <p className="text-accent font-medium">Bachelor of Computer Science</p>
+                <p className="text-accent font-medium">{t.education.degree}</p>
               </div>
 
               <div className="flex flex-wrap gap-4 text-sm" style={{ color: "rgb(var(--color-text-muted))" }}>
@@ -44,19 +47,16 @@ export default function Education() {
                   <Calendar size={14} className="text-accent/70" /> 2022 – 2026
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <MapPin size={14} className="text-accent/70" /> South Tangerang, Indonesia
+                  <MapPin size={14} className="text-accent/70" /> {t.education.location}
                 </span>
               </div>
 
-              
-
               <div className="mt-2 p-5 rounded-xl bg-accent/5 border border-accent/15">
                 <p className="text-xs text-accent font-semibold uppercase tracking-wider mb-2 flex items-center gap-2">
-                  <FileText size={12} /> Final Project / Thesis
+                  <FileText size={12} /> {t.education.thesisLabel}
                 </p>
                 <p className="text-sm leading-relaxed" style={{ color: "rgb(var(--color-text-secondary))" }}>
-                  Analysis of the Effectiveness of the Cosine Similarity Method for Plagiarism
-                  Detection in Academic Documents
+                  {t.education.thesisTitle}
                 </p>
               </div>
             </div>

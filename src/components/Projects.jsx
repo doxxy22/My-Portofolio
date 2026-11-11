@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Github, ExternalLink, Folder } from "lucide-react";
 import { projects } from "../data/projects.ts";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -12,15 +13,23 @@ const fadeUp = {
 };
 
 export default function Projects() {
+  const { t } = useLanguage();
+
   return (
     <section id="projects" className="py-24 px-6 max-w-7xl mx-auto">
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
         {/* Section label */}
         <motion.div className="flex items-center gap-4 mb-12" variants={fadeUp}>
-          <span className="text-7xl md:text-8xl font-black text-accent/10 leading-none select-none">03</span>
+          <span className="text-7xl md:text-8xl font-black text-accent/10 leading-none select-none">
+            {t.projects.number}
+          </span>
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "rgb(var(--color-text))" }}>Featured Projects</h2>
-            <p className="text-sm mt-1" style={{ color: "rgb(var(--color-text-muted))" }}>A selection of projects I've worked on</p>
+            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "rgb(var(--color-text))" }}>
+              {t.projects.title}
+            </h2>
+            <p className="text-sm mt-1" style={{ color: "rgb(var(--color-text-muted))" }}>
+              {t.projects.subtitle}
+            </p>
           </div>
         </motion.div>
 
@@ -28,6 +37,9 @@ export default function Projects() {
         <div className="space-y-6">
           {projects.map((project, index) => {
             const isEven = index % 2 === 0;
+            const localized = t.projects.items.find((p) => p.id === project.id);
+            const title = localized?.title || project.title;
+            const description = localized?.description || project.description;
 
             return (
               <motion.article
@@ -53,7 +65,7 @@ export default function Projects() {
                       ) : project.image ? (
                         <img
                           src={project.image}
-                          alt={project.title}
+                          alt={title}
                           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                       ) : (
@@ -75,7 +87,7 @@ export default function Projects() {
                   <div className={`lg:col-span-5 p-7 md:p-9 flex flex-col justify-center ${!isEven ? "lg:order-1" : ""}`}>
                     <div className="flex items-center gap-3 mb-3">
                       <p className="text-xs font-semibold text-accent uppercase tracking-widest">
-                        PROJECT {String(index + 1).padStart(2, "0")}
+                        {t.projects.projectPrefix} {String(index + 1).padStart(2, "0")}
                       </p>
                       {project.video && (
                         <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent/15 text-accent border border-accent/30 uppercase tracking-wider">
@@ -87,10 +99,10 @@ export default function Projects() {
                       className="text-xl md:text-2xl font-bold mb-3 group-hover:text-accent transition-colors duration-300"
                       style={{ color: "rgb(var(--color-text))" }}
                     >
-                      {project.title}
+                      {title}
                     </h3>
                     <p className="text-sm leading-relaxed mb-5" style={{ color: "rgb(var(--color-text-muted))" }}>
-                      {project.description}
+                      {description}
                     </p>
 
                     {/* Tech Badges */}
@@ -110,7 +122,7 @@ export default function Projects() {
                           className="flex items-center gap-2 text-sm hover:text-accent transition"
                           style={{ color: "rgb(var(--color-text-muted))" }}
                           whileHover={{ x: 3 }}
-                          aria-label={`View ${project.title} on GitHub`}
+                          aria-label={`View ${title} on GitHub`}
                         >
                           <Github size={15} /> GitHub
                         </motion.a>
@@ -123,7 +135,7 @@ export default function Projects() {
                           className="flex items-center gap-2 text-sm hover:text-accent transition"
                           style={{ color: "rgb(var(--color-text-muted))" }}
                           whileHover={{ x: 3 }}
-                          aria-label={`View ${project.title} live demo`}
+                          aria-label={`View ${title} live demo`}
                         >
                           <ExternalLink size={15} /> Live Demo
                         </motion.a>
@@ -147,7 +159,7 @@ export default function Projects() {
             style={{ color: "rgb(var(--color-text-muted))" }}
           >
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            And Many More...
+            {t.projects.andManyMore}
           </span>
         </motion.div>
       </motion.div>

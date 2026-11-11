@@ -1,14 +1,6 @@
 import { motion } from "framer-motion";
 import { skills } from "../data/skills.ts";
-
-const categories = [
-  { key: "languages", label: "Programming Languages", icon: "💻", num: "01" },
-  { key: "web", label: "Web Development", icon: "🌐", num: "02" },
-  { key: "databases", label: "Database", icon: "🗄️", num: "03" },
-  { key: "tools", label: "Tools & Frameworks", icon: "🛠️", num: "04" },
-  { key: "ml", label: "Data & Machine Learning", icon: "🤖", num: "05" },
-  { key: "video", label: "Video Creation & Editing", icon: "🎬", num: "06" },
-];
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -30,15 +22,32 @@ const spanMap = [
 ];
 
 export default function Skills() {
+  const { t } = useLanguage();
+
+  const categories = [
+    { key: "languages", label: t.skills.categories.languages, icon: "💻", num: "01" },
+    { key: "web", label: t.skills.categories.web, icon: "🌐", num: "02" },
+    { key: "databases", label: t.skills.categories.databases, icon: "🗄️", num: "03" },
+    { key: "tools", label: t.skills.categories.tools, icon: "🛠️", num: "04" },
+    { key: "ml", label: t.skills.categories.ml, icon: "🤖", num: "05" },
+    { key: "video", label: t.skills.categories.video, icon: "🎬", num: "06" },
+  ];
+
   return (
     <section id="skills" className="py-24 px-6 max-w-7xl mx-auto">
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
         {/* Section label */}
         <motion.div className="flex items-center gap-4 mb-12" variants={fadeUp}>
-          <span className="text-7xl md:text-8xl font-black text-accent/10 leading-none select-none">04</span>
+          <span className="text-7xl md:text-8xl font-black text-accent/10 leading-none select-none">
+            {t.skills.number}
+          </span>
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "rgb(var(--color-text))" }}>Technical Skills</h2>
-            <p className="text-sm mt-1" style={{ color: "rgb(var(--color-text-muted))" }}>Technologies and tools I work with</p>
+            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "rgb(var(--color-text))" }}>
+              {t.skills.title}
+            </h2>
+            <p className="text-sm mt-1" style={{ color: "rgb(var(--color-text-muted))" }}>
+              {t.skills.subtitle}
+            </p>
           </div>
         </motion.div>
 
@@ -65,14 +74,14 @@ export default function Skills() {
                   <span className="flex-1">{cat.label}</span>
                   {isVideo && (
                     <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-accent/15 text-accent border border-accent/30">
-                      Featured
+                      {t.skills.featured}
                     </span>
                   )}
-                  <span className="skill-count">{skills[cat.key].length}</span>
+                  <span className="skill-count">{skills[cat.key]?.length || 0}</span>
                 </h3>
 
                 <div className="flex flex-wrap gap-2">
-                  {skills[cat.key].map((skill) => (
+                  {skills[cat.key]?.map((skill) => (
                     <motion.span
                       key={skill}
                       className={`badge${isVideo && skill === "Remotion" ? " badge-glow ring-1 ring-accent/40" : " badge-glow"}`}
@@ -86,7 +95,7 @@ export default function Skills() {
 
                 {isVideo && (
                   <p className="mt-4 text-xs" style={{ color: "rgb(var(--color-text-muted))" }}>
-                    Building programmatic videos with React & Remotion — frame-accurate animations rendered as real video files.
+                    {t.skills.videoDescription}
                   </p>
                 )}
               </motion.div>

@@ -2,17 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download, MessageSquare, Sun, Moon } from "lucide-react";
 import { useTheme } from "../context/ThemeContext.jsx";
-
-const navItems = [
-  { label: "Home", to: "home" },
-  { label: "About", to: "about" },
-  { label: "Experience", to: "experience" },
-  { label: "Projects", to: "projects" },
-  { label: "Skills", to: "skills" },
-  { label: "Certificates", to: "certificates" },
-  { label: "Education", to: "education" },
-  { label: "Contact", to: "contact" },
-];
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 function scrollTo(id) {
   const el = document.getElementById(id);
@@ -24,6 +14,18 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
   const { dark, toggleTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
+
+  const navItems = [
+    { label: t.nav.home, to: "home" },
+    { label: t.nav.about, to: "about" },
+    { label: t.nav.experience, to: "experience" },
+    { label: t.nav.projects, to: "projects" },
+    { label: t.nav.skills, to: "skills" },
+    { label: t.nav.certificates, to: "certificates" },
+    { label: t.nav.education, to: "education" },
+    { label: t.nav.contact, to: "contact" },
+  ];
 
   useEffect(() => {
     const onScroll = () => {
@@ -38,7 +40,7 @@ export default function Navbar() {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [navItems]);
 
   const handleClick = (id) => {
     scrollTo(id);
@@ -47,10 +49,11 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className={`sticky top-0 z-50 transition-all duration-500 ${scrolled
+      className={`sticky top-0 z-50 transition-all duration-500 ${
+        scrolled
           ? "shadow-lg backdrop-blur-xl border-b"
           : "bg-transparent"
-        }`}
+      }`}
       style={{
         backgroundColor: scrolled ? `rgb(var(--color-bg) / 0.85)` : "transparent",
         borderColor: scrolled ? `rgb(var(--color-border) / 0.1)` : "transparent",
@@ -77,10 +80,11 @@ export default function Navbar() {
             <button
               key={item.to}
               onClick={() => handleClick(item.to)}
-              className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${active === item.to
+              className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                active === item.to
                   ? "text-accent"
                   : "hover:text-accent"
-                }`}
+              }`}
               style={{
                 color: active === item.to ? undefined : `rgb(var(--color-text-muted))`,
               }}
@@ -98,8 +102,48 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Desktop CTA + Theme Toggle */}
+        {/* Desktop CTA + Language Selector + Theme Toggle */}
         <div className="hidden lg:flex items-center gap-3">
+          {/* Language Selector */}
+          <div
+            className="flex items-center p-1 rounded-xl transition-all duration-300"
+            style={{
+              backgroundColor: dark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)",
+              border: `1px solid ${dark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}`,
+            }}
+          >
+            <button
+              onClick={() => setLanguage("id")}
+              className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all duration-200 ${
+                language === "id"
+                  ? "bg-accent text-white shadow-sm"
+                  : "hover:text-accent"
+              }`}
+              style={{
+                color: language === "id" ? "#ffffff" : "rgb(var(--color-text-muted))",
+              }}
+              aria-label="Pilih Bahasa Indonesia"
+              title="Bahasa Indonesia"
+            >
+              ID
+            </button>
+            <button
+              onClick={() => setLanguage("en")}
+              className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all duration-200 ${
+                language === "en"
+                  ? "bg-accent text-white shadow-sm"
+                  : "hover:text-accent"
+              }`}
+              style={{
+                color: language === "en" ? "#ffffff" : "rgb(var(--color-text-muted))",
+              }}
+              aria-label="Select English Language"
+              title="English"
+            >
+              EN
+            </button>
+          </div>
+
           {/* Theme Toggle */}
           <motion.button
             onClick={toggleTheme}
@@ -145,21 +189,62 @@ export default function Navbar() {
             whileTap={{ scale: 0.97 }}
             aria-label="Download CV"
           >
-            <Download size={14} /> CV
+            <Download size={14} /> {t.nav.cv}
           </motion.a>
           <motion.button
             onClick={() => scrollTo("contact")}
             className="btn-primary text-sm !px-4 !py-2"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            aria-label="Contact Me"
+            aria-label={t.nav.contactMe}
           >
-            <MessageSquare size={14} /> Contact
+            <MessageSquare size={14} /> {t.nav.contactBtn}
           </motion.button>
         </div>
 
-        {/* Mobile: Theme Toggle + Hamburger */}
+        {/* Mobile: Language Selector + Theme Toggle + Hamburger */}
         <div className="lg:hidden flex items-center gap-2">
+          {/* Language Selector Mobile */}
+          <div
+            className="flex items-center p-0.5 rounded-lg text-xs font-semibold"
+            style={{
+              backgroundColor: dark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)",
+              border: `1px solid ${dark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}`,
+            }}
+          >
+            <button
+              onClick={() => setLanguage("id")}
+              className={`px-2 py-1 rounded-md text-[11px] font-semibold transition-all ${
+                language === "id"
+                  ? "bg-accent text-white shadow-sm"
+                  : "hover:text-accent"
+              }`}
+              style={{
+                color: language === "id" ? "#ffffff" : "rgb(var(--color-text-muted))",
+              }}
+              aria-label="Pilih Bahasa Indonesia"
+              title="Bahasa Indonesia"
+            >
+              ID
+            </button>
+            <button
+              onClick={() => setLanguage("en")}
+              className={`px-2 py-1 rounded-md text-[11px] font-semibold transition-all ${
+                language === "en"
+                  ? "bg-accent text-white shadow-sm"
+                  : "hover:text-accent"
+              }`}
+              style={{
+                color: language === "en" ? "#ffffff" : "rgb(var(--color-text-muted))",
+              }}
+              aria-label="Select English Language"
+              title="English"
+            >
+              EN
+            </button>
+          </div>
+
+          {/* Theme Toggle Mobile */}
           <motion.button
             onClick={toggleTheme}
             className="p-2 rounded-lg"
@@ -171,6 +256,8 @@ export default function Navbar() {
           >
             {dark ? <Sun size={18} className="text-yellow-400" /> : <Moon size={18} className="text-blue-500" />}
           </motion.button>
+
+          {/* Hamburger Mobile */}
           <motion.button
             className="p-2"
             onClick={() => setOpen(!open)}
@@ -204,10 +291,11 @@ export default function Navbar() {
                 <motion.button
                   key={item.to}
                   onClick={() => handleClick(item.to)}
-                  className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${active === item.to
+                  className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                    active === item.to
                       ? "text-accent bg-accent/10"
                       : ""
-                    }`}
+                  }`}
                   style={{
                     color: active === item.to ? undefined : `rgb(var(--color-text-muted))`,
                   }}
@@ -227,14 +315,14 @@ export default function Navbar() {
                 className="btn-outline text-sm flex-1 !py-3"
                 aria-label="Download CV"
               >
-                <Download size={14} /> Download CV
+                <Download size={14} /> {t.nav.downloadCv}
               </a>
               <button
                 onClick={() => handleClick("contact")}
                 className="btn-primary text-sm flex-1 !py-3"
-                aria-label="Contact Me"
+                aria-label={t.nav.contactMe}
               >
-                <MessageSquare size={14} /> Contact
+                <MessageSquare size={14} /> {t.nav.contactBtn}
               </button>
             </div>
           </motion.nav>

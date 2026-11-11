@@ -1,21 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, Code2, Globe, Brain, MapPin, Award } from "lucide-react";
-
-const stats = [
-  { value: "S.Kom", label: "Degree", isNumber: false },
-  { value: 1, label: "Internship", suffix: "+", isNumber: true },
-  { value: 5, label: "Projects Built", suffix: "+", isNumber: true },
-  { value: 10, label: "Technologies", suffix: "+", isNumber: true },
-];
-
-const interests = [
-  { icon: GraduationCap, label: "Computer Science" },
-  { icon: Code2, label: "Software Development" },
-  { icon: Globe, label: "Web Development" },
-  { icon: Brain, label: "Machine Learning" },
-  { icon: MapPin, label: "Tangerang, Indonesia" },
-];
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -58,8 +44,10 @@ function StatCard({ stat, index }) {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setInView(true); },
-      { threshold: 0.5 }
+      ([entry]) => {
+        if (entry.isIntersecting) setInView(true);
+      },
+      { threshold: 0.3 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -89,15 +77,38 @@ function StatCard({ stat, index }) {
 }
 
 export default function About() {
+  const { t } = useLanguage();
+
+  const stats = [
+    { value: "S.Kom", label: t.about.stats.degree, isNumber: false },
+    { value: 1, label: t.about.stats.internship, suffix: "+", isNumber: true },
+    { value: 5, label: t.about.stats.projectsBuilt, suffix: "+", isNumber: true },
+    { value: 10, label: t.about.stats.technologies, suffix: "+", isNumber: true },
+  ];
+
+  const interests = [
+    { icon: GraduationCap, label: t.about.interests.cs },
+    { icon: Code2, label: t.about.interests.software },
+    { icon: Globe, label: t.about.interests.web },
+    { icon: Brain, label: t.about.interests.ml },
+    { icon: MapPin, label: t.about.interests.location },
+  ];
+
   return (
     <section id="about" className="py-24 px-6 max-w-7xl mx-auto">
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
         {/* Section label */}
         <motion.div className="flex items-center gap-4 mb-12" variants={fadeUp}>
-          <span className="text-7xl md:text-8xl font-black text-accent/10 leading-none select-none">01</span>
+          <span className="text-7xl md:text-8xl font-black text-accent/10 leading-none select-none">
+            {t.about.number}
+          </span>
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "rgb(var(--color-text))" }}>About Me</h2>
-            <p className="text-sm mt-1" style={{ color: "rgb(var(--color-text-muted))" }}>Get to know who I am and what drives me</p>
+            <h2 className="text-3xl md:text-4xl font-bold" style={{ color: "rgb(var(--color-text))" }}>
+              {t.about.title}
+            </h2>
+            <p className="text-sm mt-1" style={{ color: "rgb(var(--color-text-muted))" }}>
+              {t.about.subtitle}
+            </p>
           </div>
         </motion.div>
 
@@ -131,7 +142,7 @@ export default function About() {
               </div>
             </motion.div>
             <h3 className="text-xl font-bold mt-5" style={{ color: "rgb(var(--color-text))" }}>Rido Anugrah</h3>
-            <p className="text-sm text-accent font-medium">Fresh Graduate — S.Kom</p>
+            <p className="text-sm text-accent font-medium">{t.about.roleBadge}</p>
           </motion.div>
 
           {/* Bio Card — spans 8 cols */}
@@ -140,13 +151,11 @@ export default function About() {
             variants={fadeUp}
             custom={3}
           >
-            <p className="text-xs font-semibold text-accent uppercase tracking-widest mb-4">WHO I AM</p>
+            <p className="text-xs font-semibold text-accent uppercase tracking-widest mb-4">
+              {t.about.whoIAm}
+            </p>
             <p className="text-lg leading-relaxed mb-6" style={{ color: "rgb(var(--color-text-secondary))" }}>
-              I am a Fresh Graduate in Computer Science
-              with a strong
-              interest in software development, web development, programming, databases, and machine
-              learning. I have gained practical experience through a Web Developer internship and
-              various academic projects.
+              {t.about.bio}
             </p>
             {/* Interest Badges */}
             <div className="flex flex-wrap gap-2">

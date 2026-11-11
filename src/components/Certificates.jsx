@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Award, Building2, Calendar, ChevronLeft, ChevronRight, X, Eye } from "lucide-react";
 import { certificates } from "../data/certificates.ts";
+import { useLanguage } from "../context/LanguageContext.jsx";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -59,63 +60,60 @@ function ImageModal({ isOpen, onClose, certificate }) {
               <X size={24} />
             </button>
 
-            {/* Image */}
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            {/* Main Image Container */}
+            <div className="relative rounded-2xl overflow-hidden bg-black/50 border border-white/10 shadow-2xl flex items-center justify-center max-h-[75vh]">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={currentIdx}
                   src={images[currentIdx]}
-                  alt={certificate.title}
-                  className="w-full h-auto object-contain rounded-2xl"
-                  style={{ maxHeight: "80vh" }}
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
-                  transition={{ duration: 0.25 }}
+                  alt={`${certificate.title} - ${currentIdx + 1}`}
+                  className="w-full h-auto max-h-[75vh] object-contain"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
                 />
               </AnimatePresence>
 
-              {/* Navigation arrows */}
+              {/* Prev/Next arrows for multiple images */}
               {hasMultiple && (
                 <>
                   <button
                     onClick={prev}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/50 text-white hover:bg-black/70 transition-all backdrop-blur-sm"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white/80 hover:text-white hover:bg-black/70 backdrop-blur-sm transition-all"
                     aria-label="Previous image"
                   >
                     <ChevronLeft size={20} />
                   </button>
                   <button
                     onClick={next}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/50 text-white hover:bg-black/70 transition-all backdrop-blur-sm"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white/80 hover:text-white hover:bg-black/70 backdrop-blur-sm transition-all"
                     aria-label="Next image"
                   >
                     <ChevronRight size={20} />
                   </button>
                 </>
               )}
-
-              {/* Dots indicator */}
-              {hasMultiple && (
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                  {images.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCurrentIdx(idx);
-                      }}
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                        idx === currentIdx
-                          ? "bg-white w-6"
-                          : "bg-white/40 hover:bg-white/60"
-                      }`}
-                      aria-label={`Go to image ${idx + 1}`}
-                    />
-                  ))}
-                </div>
-              )}
             </div>
+
+            {/* Thumbnails if multiple */}
+            {hasMultiple && (
+              <div className="flex justify-center gap-2 mt-4">
+                {images.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentIdx(i)}
+                    className={`w-14 h-10 rounded-lg overflow-hidden border-2 transition-all ${
+                      currentIdx === i
+                        ? "border-accent scale-105"
+                        : "border-white/20 opacity-50 hover:opacity-80"
+                    }`}
+                  >
+                    <img src={img} alt={`thumb-${i}`} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* Caption */}
             <div className="mt-4 text-center">
@@ -138,6 +136,7 @@ function ImageModal({ isOpen, onClose, certificate }) {
 
 export default function Certificates() {
   const [selectedCert, setSelectedCert] = useState(null);
+  const { t } = useLanguage();
 
   return (
     <>
@@ -148,90 +147,98 @@ export default function Certificates() {
           viewport={{ once: true, margin: "-80px" }}
         >
           <motion.h2 className="section-heading" variants={fadeUp}>
-            Certificates
+            {t.certificates.title}
           </motion.h2>
           <motion.p className="section-subheading" variants={fadeUp} custom={1}>
-            Professional certifications & achievements
+            {t.certificates.subtitle}
           </motion.p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {certificates.map((cert, idx) => (
-              <motion.div
-                key={cert.id}
-                className="glass-card-hover group cursor-pointer overflow-hidden"
-                variants={fadeUp}
-                custom={idx + 2}
-                onClick={() => setSelectedCert(cert)}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.3 }}
-              >
-                {/* Certificate Image Preview */}
-                <div className="relative overflow-hidden">
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={cert.image}
-                      alt={cert.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
+            {certificates.map((cert, idx) => {
+              const localized = t.certificates.items.find((c) => c.id === cert.id);
+              const title = localized?.title || cert.title;
+              const date = localized?.date || cert.date;
+              const description = localized?.description || cert.description;
+              const certData = { ...cert, title, date, description };
 
-                  {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-                    <motion.div
-                      className="p-3 rounded-full bg-white/20 backdrop-blur-sm"
-                      initial={{ scale: 0 }}
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      <Eye size={24} className="text-white" />
-                    </motion.div>
-                  </div>
-
-                  {/* Badge count for multiple images */}
-                  {cert.images && cert.images.length > 1 && (
-                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white text-xs font-medium">
-                      {cert.images.length} certificates
+              return (
+                <motion.div
+                  key={cert.id}
+                  className="glass-card-hover group cursor-pointer overflow-hidden"
+                  variants={fadeUp}
+                  custom={idx + 2}
+                  onClick={() => setSelectedCert(certData)}
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Certificate Image Preview */}
+                  <div className="relative overflow-hidden">
+                    <div className="aspect-[4/3] overflow-hidden">
+                      <img
+                        src={cert.image}
+                        alt={title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
                     </div>
-                  )}
-                </div>
 
-                {/* Card Content */}
-                <div className="p-5 space-y-3">
-                  <h3
-                    className="text-lg font-bold line-clamp-2 group-hover:text-accent transition-colors duration-300"
-                    style={{ color: "rgb(var(--color-text))" }}
-                  >
-                    {cert.title}
-                  </h3>
+                    {/* Overlay on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                      <motion.div
+                        className="p-3 rounded-full bg-white/20 backdrop-blur-sm"
+                        initial={{ scale: 0 }}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <Eye size={24} className="text-white" />
+                      </motion.div>
+                    </div>
 
-                  <div className="flex items-center gap-4 text-sm" style={{ color: "rgb(var(--color-text-muted))" }}>
-                    <span className="flex items-center gap-1.5">
-                      <Building2 size={13} className="text-accent/70" />
-                      {cert.issuer}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <Calendar size={13} className="text-accent/70" />
-                      {cert.date}
-                    </span>
+                    {/* Badge count for multiple images */}
+                    {cert.images && cert.images.length > 1 && (
+                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white text-xs font-medium">
+                        {cert.images.length} certificates
+                      </div>
+                    )}
                   </div>
 
-                  <p
-                    className="text-sm leading-relaxed line-clamp-3"
-                    style={{ color: "rgb(var(--color-text-muted))" }}
-                  >
-                    {cert.description}
-                  </p>
+                  {/* Card Content */}
+                  <div className="p-5 space-y-3">
+                    <h3
+                      className="text-lg font-bold line-clamp-2 group-hover:text-accent transition-colors duration-300"
+                      style={{ color: "rgb(var(--color-text))" }}
+                    >
+                      {title}
+                    </h3>
 
-                  {/* View button */}
-                  <div className="pt-2">
-                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-accent group-hover:gap-2.5 transition-all duration-300">
-                      <Award size={14} />
-                      View Certificate
-                      <ChevronRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
-                    </span>
+                    <div className="flex items-center gap-4 text-sm" style={{ color: "rgb(var(--color-text-muted))" }}>
+                      <span className="flex items-center gap-1.5">
+                        <Building2 size={13} className="text-accent/70" />
+                        {cert.issuer}
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <Calendar size={13} className="text-accent/70" />
+                        {date}
+                      </span>
+                    </div>
+
+                    <p
+                      className="text-sm leading-relaxed line-clamp-3"
+                      style={{ color: "rgb(var(--color-text-muted))" }}
+                    >
+                      {description}
+                    </p>
+
+                    {/* View button */}
+                    <div className="pt-2">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-accent group-hover:gap-2.5 transition-all duration-300">
+                        <Award size={14} />
+                        {t.certificates.viewCertificate}
+                        <ChevronRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </section>
