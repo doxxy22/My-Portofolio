@@ -405,7 +405,7 @@ export function LanguageProvider({ children }) {
       const saved = localStorage.getItem("language");
       if (saved === "id" || saved === "en") return saved;
     }
-    return "id"; // Default to 'id'
+    return "en"; // Default to 'en' (English)
   });
 
   const setLanguage = (lang) => {
@@ -422,7 +422,7 @@ export function LanguageProvider({ children }) {
     document.documentElement.lang = language;
   }, [language]);
 
-  const t = translations[language] || translations.id;
+  const t = translations[language] || translations.en;
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
