@@ -131,7 +131,9 @@ export const translations = {
         {
           id: 4,
           title: "Programmatic Video with Remotion",
-          description: "Created motion graphics and animated videos entirely with code using Remotion and React. Frame-accurate animations, dynamic data-driven content, and export to real video files — no traditional video editor needed."
+          description: "Created motion graphics and animated videos entirely with code using Remotion and React. Frame-accurate animations, dynamic data-driven content, and export to real video files — no traditional video editor needed.",
+          videoLabel: "Select Video Showcase",
+          nowPlaying: "Now Playing"
         }
       ]
     },
@@ -328,7 +330,9 @@ export const translations = {
         {
           id: 4,
           title: "Video Terprogram dengan Remotion",
-          description: "Membuat motion graphic dan animasi video secara penuh menggunakan kode dengan Remotion dan React. Animasi akurat per frame, konten berbasis data dinamis, dan rendering ke file video MP4 nyata tanpa software pengedit video konvensional."
+          description: "Membuat motion graphic dan animasi video secara penuh menggunakan kode dengan Remotion dan React. Animasi akurat per frame, konten berbasis data dinamis, dan rendering ke file video MP4 nyata tanpa software pengedit video konvensional.",
+          videoLabel: "Pilih Hasil Video",
+          nowPlaying: "Sedang Diputar"
         }
       ]
     },

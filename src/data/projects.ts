@@ -28,8 +28,13 @@ export const projects = [
   {
     id: 4,
     title: "Programmatic Video with Remotion",
-    description: "Created motion graphics and animated videos entirely with code using Remotion and React. Frame-accurate animations, dynamic data-driven content, and export to real video files — no traditional video editor needed.",
+    description: "Created motion graphics and animated videos entirely with code using Remotion and React.",
     tech: ["Remotion", "React.js", "JavaScript", "Motion Graphics"],
-    video: "/assets/remotion-preview.mp4",
+    video: "/assets/pyramid.mp4",
+    videos: [
+      { id: "pyramid", title: "Pyramid Motion", src: "/assets/pyramid.mp4" },
+      { id: "prison", title: "Prison Narrative", src: "/assets/prison.mp4" },
+      { id: "pirate", title: "Pirate Adventure", src: "/assets/pirate.mp4" },
+    ]
   }
 ];
